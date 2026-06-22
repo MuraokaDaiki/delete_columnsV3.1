@@ -24,25 +24,25 @@ def get_delete_ranges(filename):
         削除する列の範囲リスト [('A', 'BV'), ('EY', 'GB'), ...]
     """
     delete_config = {
-        'ASSY 試作用1': [('A', 'BV'), ('EX', 'GA')],
-        'ASSY1': [('A', 'BV'), ('EY', 'GB')],
-        'CNC11': [('A', 'BV'), ('EH', 'EN'), ('EP', 'ES'), ('EU', 'FX'), ('JU', 'KS'), ('TA', 'TW'), ('TY', 'TY')],
-        'CNC21': [('A', 'BV'), ('EH', 'EN'), ('EP', 'ES'), ('EU', 'FX'), ('JU', 'KS'), ('TA', 'TW'), ('TY', 'TY')],
-        'S1研磨1': [('A', 'BV'), ('EN', 'ET'), ('EV', 'GA'), ('OR', 'PM')],
-        'S1切断1': [('A', 'BV'), ('EH', 'EO'), ('EQ', 'FU'), ('JR', 'KP'), ('SX', 'TT')],
-        'S2研磨1': [('A', 'BV'), ('EN', 'ET'), ('EV', 'GA'), ('OR', 'PM')],
-        'S2切断1': [('A', 'BV'), ('EH', 'EO'), ('EQ', 'FU'), ('JR', 'KP'), ('SX', 'TT')],
-        'マーク1': [('A', 'BV'), ('DA', 'DD')],
-        'ラミ1': [('A', 'BV'), ('EM', 'FQ'), ('GC', 'GC')],
+        'ASSY 試作用': [('A', 'BV'), ('EX', 'GA')],
+        'ASSY': [('A', 'BV'), ('EY', 'GB')],
+        'CNC1': [('A', 'BV'), ('EH', 'EN'), ('EP', 'ES'), ('EU', 'FX'), ('JU', 'KS'), ('TA', 'TW'), ('TY', 'TY')],
+        'CNC2': [('A', 'BV'), ('EH', 'EN'), ('EP', 'ES'), ('EU', 'FX'), ('JU', 'KS'), ('TA', 'TW'), ('TY', 'TY')],
+        'S1研磨': [('A', 'BV'), ('EN', 'ET'), ('EV', 'GA'), ('OR', 'PM')],
+        'S1切断': [('A', 'BV'), ('EH', 'EO'), ('EQ', 'FU'), ('JR', 'KP'), ('SX', 'TT')],
+        'S2研磨': [('A', 'BV'), ('EN', 'ET'), ('EV', 'GA'), ('OR', 'PM')],
+        'S2切断': [('A', 'BV'), ('EH', 'EO'), ('EQ', 'FU'), ('JR', 'KP'), ('SX', 'TT')],
+        'マーク': [('A', 'BV'), ('DA', 'DD')],
+        'ラミ': [('A', 'BV'), ('EM', 'FQ'), ('GC', 'GC')],
         '印刷 タブレット用': [('A', 'BV'), ('LR', 'MQ')],
         '印刷': [('A', 'BV'), ('ET', 'EX')],
-        '強化1': [('A', 'BV'), ('FB', 'FF')],
-        '研磨1': [('A', 'BV'), ('EM', 'ER'), ('ET', 'ET'), ('EV', 'GA'), ('OR', 'PM')],
-        '孔あけ1': [('A', 'BV'), ('EH', 'FX'), ('JK', 'JK')],
-        '切断＋研磨1': [('A', 'BV'), ('EN', 'GD'), ('KA', 'KZ'), ('OW', 'PV'), ('YD', 'ZA')],
-        '切断1': [('A', 'BV'), ('EH', 'EN'), ('EP', 'ES'), ('EU', 'FX'), ('JU', 'KS'), ('TA', 'TW'), ('TY', 'TY')],
-        '特殊作業1': [('A', 'BV'), ('EP', 'ET')],
-        '品証1': [('A', 'BV'), ('EH', 'EL')],
+        '強化': [('A', 'BV'), ('FB', 'FF')],
+        '研磨': [('A', 'BV'), ('EM', 'ER'), ('ET', 'ET'), ('EV', 'GA'), ('OR', 'PM')],
+        '孔あけ': [('A', 'BV'), ('EH', 'FX'), ('JK', 'JK')],
+        '切断＋研磨': [('A', 'BV'), ('EN', 'GD'), ('KA', 'KZ'), ('OW', 'PV'), ('YD', 'ZA')],
+        '切断': [('A', 'BV'), ('EH', 'EN'), ('EP', 'ES'), ('EU', 'FX'), ('JU', 'KS'), ('TA', 'TW'), ('TY', 'TY')],
+        '特殊作業': [('A', 'BV'), ('EP', 'ET')],
+        '品証': [('A', 'BV'), ('EH', 'EL')],
     }
     
     # ファイル名からキーワードを検出（長いキーワードから順にチェック）
@@ -101,8 +101,8 @@ def delete_columns_from_csv(input_file, output_file, delete_ranges, keyword=''):
         print(f"  削除後のデータ形状: {df_result.shape}")
         print(f"  削除後の列数: {len(df_result.columns)}")
         
-        # S2研磨1の特殊処理：69列目と70列目を入れ替える
-        if keyword == 'S2研磨1':
+        # S2研磨の特殊処理：69列目と70列目を入れ替える
+        if keyword == 'S2研磨':
             try:
                 if len(df_result.columns) >= 70:
                     print(f"  特殊処理: Col 69（設備コード）とCol 70（受注番号）を入れ替えます")
@@ -165,8 +165,8 @@ def delete_columns_from_excel(input_file, output_file, delete_ranges, keyword=''
         for col_num in cols_to_delete:
             ws.delete_cols(col_num)
         
-        # S2研磨1の特殊処理：69列目（BQ）と70列目（BR）を入れ替える
-        if keyword == 'S2研磨1':
+        # S2研磨の特殊処理：69列目（BQ）と70列目（BR）を入れ替える
+        if keyword == 'S2研磨':
             try:
                 bq_col_num = 69  # BQ列
                 br_col_num = 70  # BR列
